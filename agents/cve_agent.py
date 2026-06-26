@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-# pyrefly: ignore [missing-import]
 from langchain_ollama import ChatOllama
 
 class CVEReport(BaseModel):
