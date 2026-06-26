@@ -9,3 +9,4 @@ with engine.connect() as conn:
     )
 
     print(result.fetchone())
+    print

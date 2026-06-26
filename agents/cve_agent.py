@@ -1,29 +1,32 @@
+from pydantic import BaseModel
 # pyrefly: ignore [missing-import]
 from langchain_ollama import ChatOllama
+
+class CVEReport(BaseModel):
+    cve: str
+    severity: str
+    cvss: float
+    description: str
+    remediation: str
 
 llm = ChatOllama(
     model="qwen3",
     temperature=0
 )
 
-def analyze_cve(cve_id: str):
+def analyze(cve):
 
-    prompt = f"""
-    You are a cybersecurity analyst.
+    prompt=f"""
+Return JSON.
 
-    Analyze the vulnerability {cve_id}.
+Analyze {cve}
 
-    Return:
+Fields:
+cve
+severity
+cvss
+description
+remediation
+"""
 
-    1. Vulnerability Name
-    2. Severity
-    3. CVSS Score
-    4. Description
-    5. Remediation
-
-    Format clearly.
-    """
-
-    response = llm.invoke(prompt)
-
-    return response.content
+    return llm.invoke(prompt)
